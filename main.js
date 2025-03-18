@@ -169,8 +169,11 @@ function iterateNumbers() {
     }
 
     function identifyHighest () {
+        const txtNumber = document.getElementById("btn5").value;
+
 
     }
 
 }
 
+https://github.com/Beutrixx/JS-ADV-OUTPUT-1.git
