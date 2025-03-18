@@ -3,12 +3,12 @@ const btn2 = document.getElementById("btn2");
 const btn3 = document.getElementById("btn3");
 const btn4 = document.getElementById("btn4");
 const btn5 = document.getElementById("btn5");
+const btn6 = document.getElementById("btn6");
+const sortOrder = document.getElementById("sortOrder");
 
 const tbl = document.getElementById("tblNumbers");
 
-
 let total = 0;
-
 let numbersArr = new Array();
 
 function insertNumber() {
@@ -17,11 +17,9 @@ function insertNumber() {
     let num;
     let regex = /^[0-9]+$/; // regular expression for checking valid positive number values.
 
-
     if(txtNumber.match(regex)){
         num = parseInt(txtNumber);
         numbersArr.push(num);
-        console.log(numbersArr);
         document.getElementById("txtNum").value = "";
     } else {
         alert("Please input a positive number");
@@ -56,7 +54,9 @@ btn3.addEventListener("click", () => {
     }
 
     document.getElementById("btn4").style.display = "none";
-
+    document.getElementById("btn5").style.display = "none";
+    document.getElementById("btn6").style.display = "none";
+    document.getElementById("sortOrder").style.display = "none";
 });
 
 btn4.addEventListener("click", () => {
@@ -77,14 +77,35 @@ btn4.addEventListener("click", () => {
     tbl.appendChild(trTotal);
 });
 
+btn5.addEventListener("click", () => {
+    if (numbersArr.length > 0) {
+        const max = Math.max(...numbersArr);
+        const min = Math.min(...numbersArr);
+        alert(`Highest: ${max}, Lowest: ${min}`);
+    } else {
+        alert("No numbers to process.");
+    }
+});
+
+btn6.addEventListener("click", () => {
+    if (numbersArr.length > 0) {
+        if (sortOrder.value === "asc") {
+            numbersArr.sort((a, b) => a - b);
+        } else {
+            numbersArr.sort((a, b) => b - a);
+        }
+        iterateNumbers();
+    } else {
+        alert("No numbers to sort.");
+    }
+});
+
 function deleteNumber(i) {
     numbersArr.splice(i,1);
     iterateNumbers();
-    console.log(numbersArr)
 }
 
 function editNumber(i) {
-
     const editTxt = prompt("Enter new number: ", numbersArr[i]);
     const regex = /^[0-9]+$/; // regular expression for checking valid positive number values.
     
@@ -94,7 +115,6 @@ function editNumber(i) {
         if(editTxt.match(regex)) {
             numbersArr[i] = parseInt(editTxt);
             iterateNumbers();
-            console.log(numbersArr);
         } else {
             alert("You did not input a valid number!");
         }
@@ -110,8 +130,6 @@ function iterateNumbers() {
     if(!(numbersArr.length == 0)) {
 
         total = 0;
-
-        console.log(`Array Length: ${numbersArr.length}`);
 
         // Loop for iterating numbers from the array in a table
         for(let i=0 ; i < numbersArr.length ; i++) {
@@ -155,6 +173,9 @@ function iterateNumbers() {
 
             if(!(numbersArr.length == 0)) {
                 document.getElementById("btn4").style.display = "inline";
+                document.getElementById("btn5").style.display = "inline";
+                document.getElementById("btn6").style.display = "inline";
+                document.getElementById("sortOrder").style.display = "inline";
             }
             
             total += numbersArr[i];
@@ -165,15 +186,8 @@ function iterateNumbers() {
     } else {
         total = 0;
         document.getElementById("btn4").style.display = "none";
-        const txtNumber = document.getElementById("txtNum").value;
+        document.getElementById("btn5").style.display = "none";
+        document.getElementById("btn6").style.display = "none";
+        document.getElementById("sortOrder").style.display = "none";
     }
-
-    function identifyHighest () {
-        const txtNumber = document.getElementById("btn5").value;
-
-
-    }
-
 }
-
-https://github.com/Beutrixx/JS-ADV-OUTPUT-1.git
